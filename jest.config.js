@@ -7,6 +7,7 @@ module.exports = {
   },
   moduleNameMapper: {
     '^@middlewares/(.*)$': '<rootDir>/src/middlewares/$1',
+    '^@controllers/(.*)$': '<rootDir>/src/controllers/$1',
     '^@routes/(.*)$': '<rootDir>/src/routes/$1',
     '^@libs/(.*)$': '<rootDir>/src/libs/$1',
     '^@models/(.*)$': '<rootDir>/src/models/$1',

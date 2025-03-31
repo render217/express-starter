@@ -6,11 +6,11 @@ import cors from 'cors';
 // Import routes
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import morganMiddleware from '@middlewares/morganMiddleware';
+import morganMiddleware from '@middlewares/morgan-middleware';
 import indexRouter from '@routes/indexRouter';
-import loggerRouter from '@routes/loggerRouter';
-import authRouter from '@routes/authRouter';
-import protectedRouter from '@routes/protectedRouter';
+import apiV2Routes from '@routes/v2';
+import { errorHandler } from '@middlewares/error-middleware';
+import { authenticateJWT } from '@middlewares/auth-middleware';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -25,9 +25,7 @@ app.use(cors());
 app.use(morganMiddleware);
 // Use routes
 app.use('/', indexRouter);
-app.use('/logger', loggerRouter);
-app.use('/auth', authRouter);
-app.use('/protected', protectedRouter);
+app.use('/api/v2', authenticateJWT, apiV2Routes);
 // Swagger configuration options
 const swaggerOptions = {
   swaggerDefinition: {
@@ -37,11 +35,12 @@ const swaggerOptions = {
       description: 'API documentation for my Express application',
     },
   },
-  apis: ['./src/routes/*.ts'], // Path to the API docs
+  apis: ['./src/routes/*.ts', './src/routes/v2/*.ts'], // Path to the API docs
 };
 
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use(errorHandler);
 
 // Start the server and export the server instance
 const server = app.listen(port, () => {

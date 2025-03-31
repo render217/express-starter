@@ -16,7 +16,7 @@ export const authenticateJWT = (
   }
 
   try {
-    req.user = verifyToken(token); // Attach user info to request
+    verifyToken(token); //implement this well
     next();
   } catch (error) {
     Logger.error(error);

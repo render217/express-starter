@@ -17,6 +17,7 @@
     "paths": {
       "@middlewares/*": ["middlewares/*"], // Example path alias for middlewares
       "@routes/*": ["routes/*"], // Example path alias for routes
+      "@controllers/*": ["controllers/*"], // Example path alias for controllers
       "@libs/*": ["libs/*"], // Example path alias for libs
       "@models/*": ["models/*"], // Example path alias for models
       "@utils/*": ["utils/*"] // Example path alias for utils

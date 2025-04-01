@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import Logger from '@libs/logger';
 import { AppException } from '@libs/exceptions/app-exception';
-import { ErrorStatus } from '@libs/exceptions/error-codes';
+import { ErrorCodes } from '@libs/exceptions/error-codes';
 
 const SECRET_KEY = process.env.JWT_SECRET || '';
 
@@ -22,7 +22,7 @@ export const verifyToken = (token: string) => {
     throw new AppException({
       status: 401,
       message: 'Invalid or expired token',
-      code: ErrorStatus.INVALID_TOKEN,
+      code: ErrorCodes.INVALID_TOKEN,
     });
   }
 };

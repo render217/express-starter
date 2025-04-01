@@ -7,7 +7,7 @@ import cors from 'cors';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import morganMiddleware from '@middlewares/morgan-middleware';
-import indexRouter from '@routes/indexRouter';
+import indexRouter from '@routes/index-router';
 import apiV2Routes from '@routes/v2';
 import { errorHandler } from '@middlewares/error-middleware';
 import { authenticateJWT } from '@middlewares/auth-middleware';

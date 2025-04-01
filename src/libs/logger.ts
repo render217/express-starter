@@ -54,7 +54,7 @@ const format = winston.format.combine(
 
     // Format metadata correctly
     const metaString = Object.keys(cleanedMeta).length
-      ? `\n${util.inspect(cleanedMeta, { colors: true, depth: null })}`
+      ? ` ${util.inspect(cleanedMeta, { colors: true, depth: null })} ` //mind the space at the start and end
       : '';
 
     return `${timestamp} ${coloredLevel}: ${formattedMessage}${metaString}`;

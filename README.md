@@ -190,3 +190,11 @@ Logs are written to console and files:
 1. Ensure tests pass: `pnpm test`
 2. Ensure linting passes: `pnpm run lint`
 3. Format code: `pnpm run format`
+
+The project uses Husky to run these checks before each commit.
+
+```
+pnpm run format  # Ensures Prettier formatting is correct
+pnpm exec lint-staged  # Runs lint-staged on staged files
+pnpm test  # Runs tests before committing
+```

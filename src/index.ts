@@ -35,7 +35,7 @@ const swaggerOptions: swaggerUi.SwaggerOptions = {
       description: 'API documentation for my Express application',
     },
   },
-  apis: ['./src/routes/*.ts', './src/routes/v2/*.ts'], // Path to the API docs
+  apis: ['./src/routes/*.ts', './src/routes/v2/*.ts'], // Path to the API docs\
 };
 
 const swaggerDocs = swaggerJSDoc(swaggerOptions);

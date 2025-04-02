@@ -27,7 +27,7 @@ app.use(morganMiddleware);
 app.use('/', indexRouter);
 app.use('/api/v2', authenticateJWT, apiV2Routes);
 // Swagger configuration options
-const swaggerOptions = {
+const swaggerOptions: swaggerUi.SwaggerOptions = {
   swaggerDefinition: {
     info: {
       title: 'My Express API',

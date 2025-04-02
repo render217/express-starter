@@ -7,7 +7,7 @@ const router = express();
 
 /**
  * @swagger
- * /a2p:
+ * /api/v2/a2p:
  *   post:
  *     description: Send message from your application
  *     responses:
@@ -18,7 +18,7 @@ router.post('/a2p', a2pController);
 
 /**
  * @swagger
- * /otp:
+ * /api/v2/otp:
  *   post:
  *     description: Send OTP to user
  *     responses:
@@ -28,7 +28,7 @@ router.post('/a2p', a2pController);
 router.post('/otp', otpController.sendOTP);
 /**
  * @swagger
- * /otp/verify:
+ * /api/v2/otp/verify:
  *   post:
  *     description: Verifies otp against given number
  *     responses:

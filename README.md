@@ -1,6 +1,6 @@
 # Express TypeScript Starter Kit
 
-A production-ready Express.js starter template with TypeScript, featuring comprehensive logging, error handling, security, and development tools.
+An Express.js starter template with TypeScript, featuring logging, error handling, security, and development tools.
 
 ## Features
 
@@ -29,7 +29,7 @@ A production-ready Express.js starter template with TypeScript, featuring compre
 
   - Log levels: error, warn, info, http, debug
   - Environment-based logging (development: debug, production: warn)
-  - File logging:
+  - File logging: (only in production, but disabled, you can enable it later if DevOps team approve it)
     - `logs/error.log`: Error-level logs
     - `logs/all.log`: All logs
   - Console logging with colored output
@@ -184,6 +184,46 @@ Logs are written to console and files:
 
 - `logs/error.log`: Contains error-level logs
 - `logs/all.log`: Contains all logs
+
+# Code standard
+
+You are good enough already but we need to make some rules about typings
+
+- You should write a better comments on your work (not everywhere but where things get messy) and use JSDocs
+- Use ErrorCodes as Logging title if you know what the issue is when you throw then write the description inside the meta of the logging body.
+
+```ts
+import { ErrorCodes } from '@libs/exceptions/error-codes';
+import Logger from '@libs/logger';
+
+Logger.error(ErrorCodes.DB_COULD_NOT_CONNECT, {
+  message: 'Database connection failed',
+});
+
+//so later when debugging, we can just search for the error code make it easier
+//more common error codes will be added when working in the project
+```
+
+- use express-async-handler to handle async errors in controllers by wrapping the controller function with it
+
+```ts
+import asyncHandler from 'express-async-handler';
+
+export const a2pController = asyncHandler(async (req, res) => {
+  res.json({
+    message: 'message queued successfully',
+    id: '1234567890',
+  });
+});
+```
+
+Now you can throw your errors without catching them and global error handler will handle them. But incase you need to handle the thrown error, you can use try catch and make your logic
+
+**Naming**
+
+- Use kebab-case-for-file-names
+- Use camelCase for function and variable names
+- Use SCREAMING_SNAKE_CASE for constants
 
 ## Contributing
 

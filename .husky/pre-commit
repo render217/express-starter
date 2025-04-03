@@ -3,4 +3,4 @@
 
 pnpm run format  # Ensures Prettier formatting is correct
 pnpm exec lint-staged  # Runs lint-staged on staged files
-pnpm test  # Runs tests before committing
+pnpm npx cucumber-js  # Runs tests before committing

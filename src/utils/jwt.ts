@@ -2,8 +2,9 @@ import jwt from 'jsonwebtoken';
 import Logger from '@libs/logger';
 import { AppException } from '@libs/exceptions/app-exception';
 import { ErrorCodes } from '@libs/exceptions/error-codes';
+import { env } from '@libs/configs';
 
-const SECRET_KEY = process.env.JWT_SECRET || '';
+const SECRET_KEY = env.JWT_SECRET || '';
 
 // Generate a JWT for a user
 export const generateToken = () => {

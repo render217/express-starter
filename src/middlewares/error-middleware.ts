@@ -1,10 +1,11 @@
+import { env } from '@libs/configs';
 import { AppException } from '@libs/exceptions/app-exception';
 import { ErrorCodes } from '@libs/exceptions/error-codes';
 import { ValidationException } from '@libs/exceptions/validation-exception';
 import Logger from '@libs/logger';
 import { NextFunction, Request, Response } from 'express';
 
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = env.APP_ENV === 'development';
 
 export const SERVER_SIDE_ERRORS_CODES = [
   'DB_COULD_NOT_CONNECT',

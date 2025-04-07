@@ -11,9 +11,10 @@ import indexRouter from '@routes/index-router';
 import apiV2Routes from '@routes/v2';
 import { errorHandler } from '@middlewares/error-middleware';
 import { authenticateJWT } from '@middlewares/auth-middleware';
+import { env } from '@libs/configs';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = env.APP_PORT;
 
 // Add JSON middleware to parse incoming requests
 app.use(express.json());
@@ -44,7 +45,11 @@ app.use(errorHandler);
 
 // Start the server and export the server instance
 const server = app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  if (env.APP_ENV === 'development') {
+    console.log(`Server is running on http://localhost:${port}`);
+  } else {
+    console.log(`Server is running on ${env.BASE_URL}`);
+  }
 });
 
 // Export both the app and the server for testing later

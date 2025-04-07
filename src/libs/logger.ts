@@ -1,5 +1,6 @@
 import winston from 'winston';
 import util from 'util';
+import { env } from '@libs/configs';
 
 // Define log levels
 const levels = {
@@ -11,7 +12,7 @@ const levels = {
 };
 
 // Determine log level based on environment
-const level = () => (process.env.NODE_ENV === 'development' ? 'debug' : 'warn');
+const level = () => (env.APP_ENV === 'development' ? 'debug' : 'warn');
 
 // Define color scheme for log levels
 const colors = {

@@ -68,14 +68,6 @@ const transports: (
   | winston.transports.FileTransportInstance
 )[] = [new winston.transports.Console()];
 
-// TODO enable this if file logging is required in production
-// if (process.env.NODE_ENV === 'production') {
-//   transports.push(
-//     new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
-//   );
-//   transports.push(new winston.transports.File({ filename: 'logs/all.log' }));
-// }
-
 // Create and export the logger
 const Logger = winston.createLogger({
   level: level(),

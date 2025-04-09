@@ -45,7 +45,7 @@ app.use(errorHandler);
 
 // Start the server and export the server instance
 const server = app.listen(port, () => {
-  if (env.APP_ENV === 'development') {
+  if (env.NODE_ENV === 'development') {
     console.log(`Server is running on http://localhost:${port}`);
   } else {
     console.log(`Server is running on ${env.BASE_URL}`);

@@ -12,7 +12,7 @@ const levels = {
 };
 
 // Determine log level based on environment
-const level = () => (env.APP_ENV === 'development' ? 'debug' : 'warn');
+const level = () => (env.NODE_ENV === 'development' ? 'debug' : 'warn');
 
 // Define color scheme for log levels
 const colors = {

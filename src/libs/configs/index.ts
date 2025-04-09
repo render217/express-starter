@@ -23,14 +23,16 @@
  * Example:
  * ```ts
  * import { env } from './env'
- * console.log(`Running on ${env.BASE_URL} in ${env.APP_ENV} mode`)
+ * console.log(`Running on ${env.BASE_URL} in ${env.NODE_ENV} mode`)
  * ```
  */
 
 import { z } from 'zod';
 
 export const envSchema = z.object({
-  APP_ENV: z.enum(['development', 'production', 'test']).default('development'),
+  NODE_ENV: z
+    .enum(['development', 'production', 'test'])
+    .default('development'),
   APP_PORT: z.coerce.number().int().positive().default(3000),
   BASE_URL: z.string().url().default('http://localhost:3000'),
   DB_URL: z.string().url().default('postgres://localhost:5432/mydb'),
@@ -48,7 +50,7 @@ if (!parsed.success) {
  * @example
  * ```ts
  * import { env } from './env'
- * console.log(`Running on ${env.BASE_URL} in ${env.APP_ENV} mode`)
+ * console.log(`Running on ${env.BASE_URL} in ${env.NODE_ENV} mode`)
  * ```
  */
 export const env = parsed.data;

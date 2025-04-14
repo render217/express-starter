@@ -1,0 +1,34 @@
+openapi: 3.0.0
+info:
+  title: My Express API
+  version: 1.0.0
+  description: API documentation for my Express application
+
+paths:
+  /:
+    get:
+      description: Welcome to API service
+      responses:
+        '200':
+          description: Returns a welcome message
+
+  /api/v2/a2p:
+    post:
+      description: Send message from your application
+      responses:
+        '200':
+          description: Returns a message id
+
+  /api/v2/otp:
+    post:
+      description: Send OTP to user
+      responses:
+        '200':
+          description: Returns a message id
+
+  /api/v2/otp/verify:
+    post:
+      description: Verifies OTP against given number
+      responses:
+        '200':
+          description: Returns validity of otp

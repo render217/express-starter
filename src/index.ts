@@ -4,7 +4,7 @@ dotenv.config();
 import helmet from 'helmet';
 import cors from 'cors';
 // Import routes
-import swaggerJSDoc from 'swagger-jsdoc';
+import YAML from 'yamljs';
 import swaggerUi from 'swagger-ui-express';
 import morganMiddleware from '@middlewares/morgan-middleware';
 import indexRouter from '@routes/index-router';
@@ -27,19 +27,9 @@ app.use(morganMiddleware);
 // Use routes
 app.use('/', indexRouter);
 app.use('/api/v2', authenticateJWT, apiV2Routes);
-// Swagger configuration options
-const swaggerOptions: swaggerUi.SwaggerOptions = {
-  swaggerDefinition: {
-    info: {
-      title: 'My Express API',
-      version: '1.0.0',
-      description: 'API documentation for my Express application',
-    },
-  },
-  apis: ['./src/routes/*.ts', './src/routes/v2/*.ts'], // Path to the API docs\
-};
 
-const swaggerDocs = swaggerJSDoc(swaggerOptions);
+const swaggerDocs = YAML.load('./docs/swagger.yaml');
+// Swagger API documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(errorHandler);
 

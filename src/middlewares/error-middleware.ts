@@ -7,7 +7,7 @@ import { NextFunction, Request, Response } from 'express';
 
 const isDev = env.NODE_ENV === 'development';
 
-export const SERVER_SIDE_ERRORS_CODES = [
+export const SERVER_SIDE_ERRORS_CODES: Array<keyof typeof ErrorCodes> = [
   'DB_COULD_NOT_CONNECT',
   'DB_TIMEOUT',
   'DB_QUERY_FAILED',
@@ -20,14 +20,14 @@ export const SERVER_SIDE_ERRORS_CODES = [
   'THIRD_PARTY_SERVICE_ERROR',
   'NETWORK_ERROR',
   'TIMEOUT_ERROR',
-];
+] as const;
 /**
  * Global error handling middleware
  *
- * @param err - The Express error (can be ours or another)
- * @param req - The initial request
- * @param res - The response object
- * @param next - Allows passing to the next middleware if it exists
+ * @param err {@link Error}- The Express error (can be ours or another)
+ * @param req {@link Request}- The initial request
+ * @param res {@link Response}- The response object
+ * @param next {@link NextFunction}- Allows passing to the next middleware if it exists
  *
  */
 export const errorHandler = (
@@ -47,7 +47,7 @@ export const errorHandler = (
       code:
         err.code && isDev
           ? SERVER_SIDE_ERRORS_CODES.includes(err.code)
-            ? 'INTERNAL_SERVER_ERROR'
+            ? ErrorCodes.INTERNAL_SERVER_ERROR
             : err.code
           : undefined, //replace sensitive errors with Internal_Server_error or handle it yourself on code, but this will show in dev mode
       message: err.message,
@@ -69,9 +69,29 @@ export const errorHandler = (
   /**
    * In other cases, we return a 500
    */
-  Logger.error(err);
-  return res.status(500).json({
-    message: 'Something went wrong',
+  Logger.error(ErrorCodes.INTERNAL_SERVER_ERROR, {
+    message: isDev
+      ? err?.message || 'Something went wrong'
+      : 'Something went wrong',
     code: ErrorCodes.INTERNAL_SERVER_ERROR,
+    name: err?.name,
+    stack: err.stack,
+    req: {
+      hasAuthToken: !!req.headers?.authorization,
+      ip: req.ip,
+      body: req.body,
+      params: req.params,
+      query: req.query,
+    },
+  });
+
+  return res.status(500).json({
+    message: isDev
+      ? err?.message
+        ? err?.message
+        : 'Somewhing went wrong'
+      : 'Something went wrong',
+    code: ErrorCodes.INTERNAL_SERVER_ERROR,
+    stack: isDev ? err.stack : undefined,
   });
 };

@@ -1,3 +1,5 @@
+import { ErrorCodes } from '@libs/exceptions/error-codes';
+
 type ValidationExceptionParams = {
   message: string;
   violations: unknown;
@@ -11,16 +13,17 @@ type ValidationExceptionParams = {
  *
  * @example
  * ```ts
- *   try {
- *    await stripeClient.charges.create({ amount });
- *   } catch (stripeError) {
- *    throw new ValidationException({
- *      status: 400,
- *      code: 'PAYMENT_FAILED',
- *      body: 'Payment processing failed',
- *      cause: stripeError
- *    });
+ * const result = validate(a2pSchema, req.body, {
+ *   throwOnError: false,
+ * });
+ *
+ * if (!result.success) {
+ *   throw new ValidationException({
+ *     message: 'Validation error',
+ *     violations: result.error.flatten().fieldErrors,
+ *   });
  * }
+ * ```
  */
 export class ValidationException extends Error {
   public readonly status: number;
@@ -33,8 +36,8 @@ export class ValidationException extends Error {
   constructor({ message, cause, violations }: ValidationExceptionParams) {
     // -- initialize
     super(message);
-    this.status = 400;
-    this.code = 'VALIDATION_ERROR';
+    this.status = 422;
+    this.code = ErrorCodes.VALIDATION_ERROR;
     this.message = message;
     this.cause = cause;
     this.violations = violations;

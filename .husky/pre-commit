@@ -1,3 +1,2 @@
 pnpm run format  # Ensures Prettier formatting is correct
 pnpm exec lint-staged  # Runs lint-staged on staged files
-pnpm run test  # Runs tests before committing

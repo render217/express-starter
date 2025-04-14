@@ -46,6 +46,12 @@ When(
     response = await apiRequest.post(`${BASE_URL}${endpoint}`, {
       headers: {
         Authorization: `Bearer ${TEST_JWT_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      data: {
+        to: '725143831',
+        smsType: 'GSM',
+        body: 'Here',
       },
     });
   },

@@ -5,10 +5,25 @@ import express from 'express';
 
 const router = express();
 
+/**
+ * @url /api/v2/a2p
+ * @method POST
+ * @description Send message from your application
+ */
 router.post('/a2p', a2pController);
 
-router.post('/otp', otpController.sendOTP);
+/**
+ * @url /api/v2/otp/register
+ * @method POST
+ * @description Send OTP to user
+ */
+router.post('/otp/register', otpController.sendOTP);
 
+/**
+ * @url /api/v2/a2p
+ * @method POST
+ * @description Verify OTP against given number
+ */
 router.post('/otp/verify', otpController.verifyOTP);
 
 export default router;
